@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<h2 style="color:white;padding:20px;">Recommended Movies for You</h2>
+<div class="container">
+  <div id="movies" class="row">
+  {% for details in rec_info %}
+    <div class="col-md-3">
+      <div class="container">
+          <figure>
+            <a href="{{ url_for('movie_details',id=details[0],title=details[1]) }}"><img src="http://image.tmdb.org/t/p/w185//{{ details[2] }}" class="img-thumbnail"></a>
+            <br>
+            <figcaption style="text-align:center;color:white">{{ details[1] }}</figcaption>
+          </figure>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+</div>
+<br><br><br>
+
+
+{% endblock content %}

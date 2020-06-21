@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="jumbotron col-md-12" id="search">
+      <h3 class="text-center">Search For Any Movie</h3>
+      <form  action="/search" method="post">
+        <input type="text" class="form-control" name="searchText" placeholder="Search Movies...">  
+      </form>
+    </div>
+  </div>
+</div>
+
+<h2 style="color:white;padding:20px;">Trending Movies This Week</h2>
+<div class="container">
+  <div id="movies" class="row">
+  {% for movie_title,details in movie_info.items() %}
+    <div class="col-md-3">
+      <div class="container">
+          <figure>
+            <a href="{{ url_for('movie_details',id=details[1],title=movie_title) }}"><img src="http://image.tmdb.org/t/p/w185//{{ details[0] }}" class="img-thumbnail"></a>
+            <br>
+            <figcaption style="text-align:center;color:white">{{ movie_title }}</figcaption>
+          </figure>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+</div>
+<br><br><br>
+{% endblock content %}
+

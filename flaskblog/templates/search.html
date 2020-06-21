@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block content %}
+<br><br>
+<div class="container">
+  <hgroup class="mb20">
+    <h1>Search Results for "{{ search_movie }}"</h1>              
+  </hgroup>
+  <br>
+    {% for movie_title,contents in movie_info.items() %}
+    <section class="col-xs-12 col-sm-6 col-md-12" style="padding:10px;background-color:white;border-radius:10px">
+      <article class="search-result row">
+        <div class="col-xs-12 col-sm-12 col-md-3">
+          <a href="#" title="{{ movie_title }}" class="thumbnail"><img alt="{{ movie_title }}" src="http://image.tmdb.org/t/p/w185//{{ contents[0] }}"></a>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-7 excerpet">
+          <h3><a href="{{ url_for('movie_details',id=contents[3]) }}">{{ movie_title }}</a></h3>
+          <p>{{ contents[1] }}</p> 
+          <h4><STRONG>Vote Average : {{ contents[2] }}</STRONG></h4>
+          {% if contents[4]!=0 %}
+            <br>
+            <a href="https://www.youtube.com/watch?v={{ contents[4] }}"class="btn btn-info" role="button" target="_blank">Watch Trailer</a>
+            <a href="{{ url_for('create_review',movie_name=movie_title) }}" class="btn btn-light" role="button">Write A Review</a>
+            <a href="{{ url_for('add_movie_to_watchlist',movie_name=movie_title) }}"><button type="button" class="btn btn-dark" style="padding-left: 5px;">Add To My WatchList</button></a>
+          {% else %}
+            <br>
+            <strong>Trailer Not Avaliable</strong>
+            <button type="button" class="btn btn-dark" style="padding-left: 5px;">Add To My WatchList</button>
+          {% endif %}            
+        </div>
+      </article>
+    </section>
+    <hr>
+    {% endfor %}
+</div>
+<style type="text/css">
+  .container { margin-top: 20px; }
+</style>
+{% endblock content %}
+
+

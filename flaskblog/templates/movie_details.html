@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<div class="container" style="border-radius:10px;background-color:white;margin-bottom:20px;padding:20px;">
+	{% for movie_name,details in movie.items() %} 
+	<br>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-3">
+			<img src="http://image.tmdb.org/t/p/w185//{{ details[0] }}" class="img-fluid img-thumbnail">
+			<br>
+		</div>
+		<div class="col-md-8">
+			<h1>{{ movie_name }}</h1>
+			{% for genre in details[3] %}
+				{% for key,value in genre.items() %}
+					{% if key=='name' %}
+						{{ value }}
+					{% endif %}
+				{% endfor %}
+			{% endfor %}
+			<br><br>
+			<h3>Overview</h3>
+			<p><strong>{{ details[1] }}</strong></p>
+			<a href="https://www.youtube.com/watch?v={{ key }}"class="btn btn-info" role="button" target="_blank">Watch Trailer</a>
+			<a href="{{ url_for('create_review',movie_name=movie_name) }}" class="btn btn-light" role="button">Write A Review</a>
+			<a href="{{ url_for('add_movie_to_watchlist',movie_name=movie_name,id=details[5]) }}"><button type="button" class="btn btn-dark" style="padding-left: 5px;">Add To My WatchList</button></a>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+
+<br><br><br>
+<div class="container" style="border-radius:10px;background-color:white;margin-bottom:20px;padding:20px">
+	<h2>The Cast</h2>
+	<hr>
+  <div id="movies" class="row">
+  {% for char in actors %}
+    <div class="col-md-3">
+      <div class="container">
+          <img src="http://image.tmdb.org/t/p/w185//{{ char[1] }}" class="img-circle" style="border-radius:80%;border:1px solid white;">
+          <figcaption style="text-align:center;color:black;">{{ char[0] }}</figcaption>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+</div>
+
+
+<div class="container" style="border-radius: 10px;background-color:white;margin-bottom:20px;">
+  <h2 style="padding:10px;">Movies to watch because you chose <STRONG>"{{ movie_name }}"</STRONG></h2>
+  <hr>
+  <div id="movies" class="row">
+  {% for movie in sim_movies %}
+    <div class="col-md-3">
+      <div class="container" style="padding:10px;">
+          <a href="{{ url_for('movie_details',id=movie[0]) }}"><img src="http://image.tmdb.org/t/p/w185//{{ movie[2] }}" class="im img-thumbnail"></a>
+          <figcaption style="text-align:center;color:black;">{{ movie[1] }}</figcaption>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+</div>
+
+{% endblock content %}

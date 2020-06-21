@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1 style="padding:10px;color:white;">Your Watchlist</h1>
+<br><hr><br>
+<div class="row" style="padding:10px;background-color:white;border-radius:10px;align-self:center;">
+	
+{% for movie_name,details in movie_dict.items() %}
+<div class="col-md-3">
+	<div class="card" style="width:15rem;padding:15px;">
+  		<img class="card-img-top" src="http://image.tmdb.org/t/p/w185//{{ details[0] }}" alt="{{ movie_name }}">
+    	<figcaption style="text-align:center;color:black;"><strong>{{ movie_name }}</strong></figcaption>
+	</div>
+</div>
+<br><br>
+{% endfor %}
+</div>
+{% endblock content %}
